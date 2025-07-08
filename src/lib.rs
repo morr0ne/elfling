@@ -50,13 +50,13 @@ pub struct Header64 {
     pub magic: Magic,
     pub class: Class,
     pub encoding: Encoding,
-    pub version: u8,
+    pub header_version: Version,
     pub os_abi: OsAbi,
     pub abi_version: u8,
     pub pad: [u8; 7],
     pub object_type: ObjectType,
     pub machine: Machine,
-    pub e_version: u32,
+    pub version: Version,
     pub e_entry: u64,
     pub e_phoff: u64,
     pub e_shoff: u64,
@@ -97,10 +97,45 @@ elf_enum! {
     }
 }
 
-#[repr(transparent)]
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
-pub struct OsAbi {
-    inner: u8,
+elf_enum! {
+    pub struct OsAbi(u8) {
+        /// No extensions or unspecified
+        NONE = 0,
+        /// Hewlett-Packard HP-UX
+        HPUX = 1,
+        /// NetBSD
+        NETBSD = 2,
+        /// GNU
+        GNU = 3,
+        /// Linux (historical - alias for ELFOSABI_GNU)
+        LINUX = 3,
+        /// Sun Solaris
+        SOLARIS = 6,
+        /// AIX
+        AIX = 7,
+        /// IRIX
+        IRIX = 8,
+        /// FreeBSD
+        FREEBSD = 9,
+        /// Compaq TRU64 UNIX
+        TRU64 = 10,
+        /// Novell Modesto
+        MODESTO = 11,
+        /// Open BSD
+        OPENBSD = 12,
+        /// Open VMS
+        OPENVMS = 13,
+        /// Hewlett-Packard Non-Stop Kernel
+        NSK = 14,
+        /// Amiga Research OS
+        AROS = 15,
+        /// The FenixOS highly scalable multi-core OS
+        FENIXOS = 16,
+        /// Nuxi CloudABI
+        CLOUDABI = 17,
+        /// Stratus Technologies OpenVOS
+        OPENVOS = 18,
+    }
 }
 
 elf_enum! {
@@ -473,5 +508,14 @@ elf_enum! {
         AMDGPU = 224,
         /// RISC-V
         RISCV = 243,
+    }
+}
+
+elf_enum! {
+    pub struct Version(u32) {
+        /// Invalid version
+        NONE = 0,
+        /// Current version
+        CURRENT = 1,
     }
 }
