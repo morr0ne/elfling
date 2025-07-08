@@ -10,7 +10,7 @@ pub struct Header64 {
     pub os_abi: OsAbi,
     pub abi_version: u8,
     pub pad: [u8; 7],
-    pub object_type: u16,
+    pub object_type: ObjectType,
     pub e_machine: u16,
     pub e_version: u32,
     pub e_entry: u64,
@@ -73,4 +73,26 @@ impl Encoding {
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
 pub struct OsAbi {
     inner: u8,
+}
+
+#[repr(transparent)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
+pub struct ObjectType {
+    inner: u16,
+}
+
+impl ObjectType {
+    pub const NONE: Self = Self::from_raw(0);
+    pub const REL: Self = Self::from_raw(1);
+    pub const EXEC: Self = Self::from_raw(2);
+    pub const DYN: Self = Self::from_raw(3);
+    pub const CORE: Self = Self::from_raw(4);
+    pub const LOOS: Self = Self::from_raw(0xfe00);
+    pub const HIOS: Self = Self::from_raw(0xfeff);
+    pub const LOPROC: Self = Self::from_raw(0xff00);
+    pub const HIPROC: Self = Self::from_raw(0xffff);
+
+    pub const fn from_raw(raw: u16) -> Self {
+        Self { inner: raw }
+    }
 }
