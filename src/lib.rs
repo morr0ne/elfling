@@ -10,7 +10,7 @@ pub struct Header64 {
     pub os_abi: OsAbi,
     pub abi_version: u8,
     pub pad: [u8; 7],
-    pub e_type: u16,
+    pub object_type: u16,
     pub e_machine: u16,
     pub e_version: u32,
     pub e_entry: u64,
@@ -33,7 +33,7 @@ pub struct Magic {
 
 impl Magic {
     pub fn is_valid(&self) -> bool {
-        true
+        self.inner == [0x7f, b'E', b'L', b'F']
     }
 }
 
