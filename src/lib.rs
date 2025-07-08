@@ -26,6 +26,20 @@ macro_rules! elf_enum {
             pub const fn from_raw(raw: $inner_type) -> Self {
                 Self { inner: raw }
             }
+
+            pub const fn into_raw(self) -> $inner_type {
+                self.inner
+            }
+
+            pub const fn as_raw(&self) -> $inner_type {
+                self.inner
+            }
+        }
+
+        impl From<$name> for $inner_type {
+            fn from(e: $name) -> $inner_type {
+                e.into_raw()
+            }
         }
     };
 }
