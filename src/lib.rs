@@ -50,7 +50,7 @@ pub struct Header64 {
     pub magic: Magic,
     pub class: Class,
     pub encoding: Encoding,
-    pub header_version: Version,
+    pub header_version: HeaderVersion,
     pub os_abi: OsAbi,
     pub abi_version: u8,
     pub pad: [u8; 7],
@@ -94,6 +94,15 @@ elf_enum! {
         NONE = 0,
         ELFDATA2LSB = 1,
         ELFDATA2MSB = 2,
+    }
+}
+
+elf_enum! {
+    pub struct HeaderVersion(u8) {
+        /// Invalid version
+        NONE = 0,
+        /// Current version
+        CURRENT = 1,
     }
 }
 
