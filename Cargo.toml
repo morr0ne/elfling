@@ -1,8 +1,10 @@
 [package]
 name = "elfling"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2024"
 
 [dependencies]
-anyhow = "1.0.98"
 zerocopy = { version = "0.8.26", features = ["derive", "std"] }
+
+[dev-dependencies]
+anyhow = "1.0.98"
