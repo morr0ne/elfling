@@ -44,29 +44,77 @@ macro_rules! elf_enum {
     };
 }
 
+/// 64-bit ELF header structure (Elf64_Ehdr)
+///
+/// This structure represents the ELF file header for 64-bit object files.
+/// It provides essential information about the file format, target architecture,
+/// and layout of the ELF file.
 #[repr(C)]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
 pub struct Header64 {
+    /// ELF identification magic number [0x7f, 'E', 'L', 'F']
+    #[doc(alias = "EI_MAG0")]
+    #[doc(alias = "EI_MAG1")]
+    #[doc(alias = "EI_MAG2")]
+    #[doc(alias = "EI_MAG3")]
     pub magic: Magic,
+    /// Object file class (32-bit or 64-bit)
+    #[doc(alias = "EI_CLASS")]
     pub class: Class,
+    /// Data encoding (little-endian or big-endian)
+    #[doc(alias = "EI_DATA")]
     pub encoding: Encoding,
+    /// File version (EI_VERSION)
+    #[doc(alias = "EI_VERSION")]
     pub header_version: HeaderVersion,
+    /// Operating system/ABI identification
+    #[doc(alias = "EI_OSABI")]
     pub os_abi: OsAbi,
+    /// ABI version
+    #[doc(alias = "EI_ABIVERSION")]
     pub abi_version: u8,
+    /// Padding bytes (reserved for future use)
+    #[doc(alias = "EI_PAD")]
     pub pad: [u8; 7],
+    /// Object file type (executable, relocatable, shared object, etc.)
+    #[doc(alias = "e_type")]
     pub object_type: ObjectType,
+    /// Target architecture
+    #[doc(alias = "e_machine")]
     pub machine: Machine,
+    /// Object file version
+    #[doc(alias = "e_version")]
     pub version: Version,
-    pub e_entry: u64,
-    pub e_phoff: u64,
-    pub e_shoff: u64,
-    pub e_flags: u32,
-    pub e_ehsize: u16,
-    pub e_phentsize: u16,
-    pub e_phnum: u16,
-    pub e_shentsize: u16,
-    pub e_shnum: u16,
-    pub e_shstrndx: u16,
+    /// Entry point virtual address
+    #[doc(alias = "e_entry")]
+    pub entry_point: u64,
+    /// Program header table file offset
+    #[doc(alias = "e_phoff")]
+    pub program_header_offset: u64,
+    /// Section header table file offset
+    #[doc(alias = "e_shoff")]
+    pub section_header_offset: u64,
+    /// Processor-specific flags
+    #[doc(alias = "e_flags")]
+    pub flags: u32,
+    /// ELF header size in bytes
+    #[doc(alias = "e_ehsize")]
+    pub header_size: u16,
+    /// Program header table entry size
+    #[doc(alias = "e_phentsize")]
+    pub program_header_entry_size: u16,
+    /// Number of entries in the program header table
+    #[doc(alias = "e_phnum")]
+    pub program_header_count: u16,
+    /// Section header table entry size
+    #[doc(alias = "e_shentsize")]
+    pub section_header_entry_size: u16,
+    /// Number of entries in the section header table
+    #[doc(alias = "e_shnum")]
+    pub section_header_count: u16,
+    /// Section header string table index
+    #[doc(alias = "e_shstrndx")]
+    pub section_header_string_table_index: u16,
 }
 
 #[repr(transparent)]
