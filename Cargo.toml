@@ -2,6 +2,13 @@
 name = "elfling"
 version = "0.0.1"
 edition = "2024"
+license = "Apache-2.0"
+description = "Elf thingy"
+authors = ["Matilde Morrone <contact@morrone.dev>"]
+repository = "https://github.com/morr0ne/elfling"
+readme = "README.md"
+include = ["src/**/*.rs", "README.md", "LICENSE"]
+
 
 [dependencies]
 zerocopy = { version = "0.8.26", features = ["derive", "std"] }
