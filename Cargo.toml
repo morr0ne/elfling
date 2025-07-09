@@ -9,7 +9,6 @@ repository = "https://github.com/morr0ne/elfling"
 readme = "README.md"
 include = ["src/**/*.rs", "README.md", "LICENSE"]
 
-
 [dependencies]
 zerocopy = { version = "0.8.26", features = ["derive", "std"] }
 
