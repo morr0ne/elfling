@@ -51,6 +51,7 @@ macro_rules! elf_enum {
 /// and layout of the ELF file.
 #[repr(C)]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
+#[doc(alias = "Elf64_Ehdr")]
 pub struct Header64 {
     /// ELF identification magic number [0x7f, 'E', 'L', 'F']
     #[doc(alias = "EI_MAG0")]
