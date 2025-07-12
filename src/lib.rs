@@ -11,7 +11,7 @@ macro_rules! elf_enum {
         }
     ) => {
         #[repr(transparent)]
-        #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
+        #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, FromBytes)]
         $(#[$attr])*
         $vis struct $name {
             inner: $inner_type,
@@ -22,7 +22,6 @@ macro_rules! elf_enum {
                 $(#[doc = $doc])*
                 pub const $const_name: Self = Self::from_raw($value);
             )*
-
 
             pub const fn as_human_string(&self) -> &'static str {
                 match *self {
@@ -44,6 +43,22 @@ macro_rules! elf_enum {
 
             pub const fn as_raw(&self) -> $inner_type {
                 self.inner
+            }
+
+            pub(crate) const fn debug_name(&self) -> &'static str {
+                match *self {
+                    $(
+                        #[allow(unreachable_patterns)]
+                        Self::$const_name => stringify!($const_name),
+                    )*
+                    _ => "UNKNOWN"
+                }
+            }
+        }
+
+        impl std::fmt::Debug for $name {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                write!(f, "{}({})", self.debug_name(), self.inner)
             }
         }
 
