@@ -9,8 +9,15 @@ repository = "https://github.com/morr0ne/elfling"
 readme = "README.md"
 include = ["src/**/*.rs", "README.md", "LICENSE"]
 
+[features]
+std = ["zerocopy/std"]
+
 [dependencies]
-zerocopy = { version = "0.8.26", features = ["derive", "std"] }
+zerocopy = { version = "0.8.26", features = ["derive"] }
 
 [dev-dependencies]
-anyhow = "1.0.98"
+anyhow = "1.0.99"
+
+[[example]]
+name = "readelf"
+required-features = ["std"]

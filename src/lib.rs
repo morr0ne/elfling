@@ -1,3 +1,5 @@
+#![no_std]
+
 pub mod header;
 pub mod program_header;
 
@@ -57,8 +59,8 @@ macro_rules! elf_enum {
             }
         }
 
-        impl std::fmt::Debug for $name {
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        impl core::fmt::Debug for $name {
+            fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(f, "{}({})", self.debug_name(), self.inner)
             }
         }
